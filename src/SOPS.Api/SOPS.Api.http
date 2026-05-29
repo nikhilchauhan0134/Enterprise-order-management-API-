@@ -1,0 +1,6 @@
+@SOPS.Api_HostAddress = http://localhost:5223
+
+GET {{SOPS.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

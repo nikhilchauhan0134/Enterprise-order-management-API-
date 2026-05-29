@@ -1,0 +1,26 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__SqlServer: "Server=sql;Database=SOPS;User Id=sa;Password=Your_password123;TrustServerCertificate=True;"
+      ConnectionStrings__Redis: "redis:6379"
+      ThirdParty__BaseUrl: "https://httpbin.org/"
+    depends_on:
+      - sql
+      - redis
+
+  sql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Your_password123"
+    ports:
+      - "1433:1433"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
